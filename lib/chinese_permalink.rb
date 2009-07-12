@@ -13,21 +13,17 @@ module ChinesePermalink
       attr_accessor :permalink_attrs
       attr_accessor :permalink_field
     end
-
-    def to_param
-      self.permalink
-    end
-
-    def create_permalink
-      permalink = self.class.permalink_attrs.collect do |attr_name|
-        chinese_value = self.send(attr_name)
-        english_value = Translate.t(chinese_value, 'CHINESE', 'ENGLISH')
-        english_value.gsub(/\s+/, '-').gsub(/[^-a-zA-Z0-9]/, '').downcase
-      end * '-'
-      permalink = id.to_s + '-' + permalink
-      self.update_attribute(self.class.permalink_field, permalink) if self.permalink.nil?
-    end
   end 
+
+  def create_permalink
+    permalink = self.class.permalink_attrs.collect do |attr_name|
+      chinese_value = self.send(attr_name)
+      english_value = Translate.t(chinese_value, 'CHINESE', 'ENGLISH')
+      english_value.gsub(/\s+/, '-').gsub(/[^-a-zA-Z0-9]/, '').downcase
+    end * '-'
+    permalink = id.to_s + '-' + permalink
+    self.update_attribute(self.class.permalink_field, permalink) if self.permalink.nil?
+  end
 
   module ClassMethods
 
