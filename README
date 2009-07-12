@@ -45,4 +45,13 @@ Or
   ruby script/generate chinese_permalink_migration add_permalink_to_posts posts slug_url
 
 
+3. define ar to_param method
+
+  class Post < ActiveRecord::Base
+    def to_param
+      permalink
+    end
+  end
+
+
 Copyright (c) 2009 Richard Huang (flyerhzm@gmail.com), released under the MIT license
