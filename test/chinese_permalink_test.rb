@@ -51,6 +51,14 @@ class ChinesePermalinkTest < Test::Unit::TestCase
     assert_equal "#{post.id}-i-am-a-chinese", post.permalink
   end
 
+  def test_chinese_title_with_dash
+    post = Post.create(:title => '我是中国人——上海')
+    assert_equal "#{post.id}-i-am-a-chinese-shanghai", post.permalink
+
+    post = Post.create(:title => '我是中国人──上海')
+    assert_equal "#{post.id}-i-am-chinese-shanghai", post.permalink
+  end
+
   def test_chinese_category_and_title
     post = CategoryPost.create(:title => '我是中国人', :category => '介绍')
     assert_equal "#{post.id}-introduction-i-am-a-chinese", post.permalink

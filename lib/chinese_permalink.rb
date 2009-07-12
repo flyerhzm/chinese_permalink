@@ -19,7 +19,7 @@ module ChinesePermalink
     permalink = self.class.permalink_attrs.collect do |attr_name|
       chinese_value = self.send(attr_name)
       english_value = Translate.t(chinese_value, 'CHINESE', 'ENGLISH')
-      english_value.gsub(/\s+/, '-').gsub(/[^-a-zA-Z0-9]/, '').downcase
+      english_value.gsub(/\s+-\s+/, '-').gsub(/\s+/, '-').gsub(/[^-a-zA-Z0-9]/, '').gsub(/-+$/, '').downcase
     end * '-'
     permalink = id.to_s + '-' + permalink
     self.update_attribute(self.class.permalink_field, permalink) if self.permalink.nil?
