@@ -1,7 +1,7 @@
 ChinesePermalink
 ================
 
-This plugin provides a way to create a seo permalink with your chinese text. It will translate your chinese text to english url based on google translate.
+This plugin adds a capability for ar model to create a seo permalink with your chinese text. It will translate your chinese text to english url based on google translate.
 
 The permalink will be composed of id and the english value translated from chinese text.
 
