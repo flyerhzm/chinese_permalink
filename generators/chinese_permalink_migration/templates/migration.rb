@@ -2,9 +2,8 @@ class Add<%= permalink_field_name.capitalize %>To<%= permalink_table_name.capita
   def self.up
     add_column :<%= permalink_table_name %>, :<%= permalink_field_name %>, :string, :default => nil
 
-    klass = Object.const_get("<%= permalink_table_name.classify %>")
-    klass.reset_column_information
-    klass.all.each do |obj|
+    <%= permalink_table_name.classify %>.reset_column_information
+    <%= permalink_table_name.classify %>.all.each do |obj|
       obj.<%= permalink_field_name %> = nil
       obj.save
     end
