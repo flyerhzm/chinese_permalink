@@ -1,0 +1,48 @@
+ChinesePermalink
+================
+
+This plugin provides a way to create a seo permalink with your chinese text. It will translate your chinese text to english url based on google translate.
+
+The permalink will be composed of id and the english value translated from chinese text.
+
+For exmpale, title of post is '我是中国人', permalink of post is '1-i-am-a-chinese'
+
+Example
+=======
+
+1. Define chinese_permalink to model
+
+  class Post < ActiveRecord::Base
+    # create permalink by chinese title, default permalink column is "permalink"
+    chinese_permalink :title
+  end
+
+Or
+
+  class Post < ActiveRecord::Base
+    # create permalink by chinese category and title
+    chinese_permalink [:category, :title]
+  end
+
+Or
+
+  class Post < ActiveRecord::Base
+    # create permalink by chinese title, store permalink to column "slug_url"
+    chinese_permalink :title, :slug_url
+  end
+
+
+2. Generate migration
+
+  ruby script/generate chinese_permalink_migration (migration name) (table name) (permalink column name)
+
+For example:
+
+  ruby script/generate chinese_permalink_migration add_permalink_to_posts posts
+
+Or
+
+  ruby script/generate chinese_permalink_migration add_permalink_to_posts posts slug_url
+
+
+Copyright (c) 2009 Richard Huang (flyerhzm@gmail.com), released under the MIT license
