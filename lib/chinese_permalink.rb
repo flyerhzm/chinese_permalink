@@ -14,6 +14,10 @@ module ChinesePermalink
       attr_accessor :permalink_field
     end
 
+    def to_param
+      self.permalink
+    end
+
     def create_permalink
       permalink = self.class.permalink_attrs.collect do |attr_name|
         chinese_value = self.send(attr_name)
