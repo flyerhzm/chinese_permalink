@@ -7,6 +7,19 @@ The permalink will be composed of id and the english value translated from chine
 
 For exmpale, title of post is '我是中国人', permalink of post is '1-i-am-a-chinese'
 
+
+Install
+=======
+
+1. install dependency gem sishen-rtranslate:
+
+  sudo gem install sishen-rtranslate --source http://gems.github.com
+
+2. install chinese_permalink plugin
+
+  script/plugin install git://github.com/flyerhzm/chinese_permalink.git
+
+
 Example
 =======
 
