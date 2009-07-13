@@ -41,12 +41,10 @@ class ChinesePermalinkTest < Test::Unit::TestCase
     teardown_db
   end
 
-  def test_one_word_chinese_title
+  def test_simple_chinese_title
     post = Post.create(:title => '中国人')
     assert_equal "#{post.id}-chinese", post.permalink
-  end
 
-  def test_more_words_chinese_title
     post = Post.create(:title => '我是中国人')
     assert_equal "#{post.id}-i-am-a-chinese", post.permalink
   end
@@ -57,6 +55,21 @@ class ChinesePermalinkTest < Test::Unit::TestCase
 
     post = Post.create(:title => '我是中国人──上海')
     assert_equal "#{post.id}-i-am-chinese-shanghai", post.permalink
+
+    post = Post.create(:title => '上海+中国')
+    assert_equal "#{post.id}-shanghai-china", post.permalink
+
+    post = Post.create(:title => '上海/中国')
+    assert_equal "#{post.id}-shanghai-china", post.permalink
+    
+    post = Post.create(:title => '妈妈的礼物')
+    assert_equal "#{post.id}-mothers-gift", post.permalink
+
+    post = Post.create(:title => '宝洁')
+    assert_equal "#{post.id}-procter-gamble", post.permalink
+
+    post = Post.create(:title => '“工作”')
+    assert_equal "#{post.id}-work", post.permalink
   end
 
   def test_chinese_category_and_title
