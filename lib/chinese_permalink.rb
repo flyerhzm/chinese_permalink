@@ -48,7 +48,7 @@ module ChinesePermalink
       self.permalink_attrs = Array(attr_names)
       self.permalink_field = permalink_field
 
-      after_save :create_permalink
+      after_create :create_permalink
     end
   end
 end
