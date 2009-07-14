@@ -32,6 +32,14 @@ class CategoryPost < Post
   chinese_permalink [:category, :title]
 end
 
+class ComplicatedPost < Post
+  chinese_permalink :title, :before_methods => :parse_c_sharp
+
+  def parse_c_sharp
+    permalink.gsub!(/C#/, /c-sharp/)
+  end
+end
+
 class ChinesePermalinkTest < Test::Unit::TestCase
   def setup
     setup_db
@@ -61,6 +69,9 @@ class ChinesePermalinkTest < Test::Unit::TestCase
 
     post = Post.create(:title => '上海/中国')
     assert_equal "#{post.id}-shanghai-china", post.permalink
+
+    post = Post.create(:title => '“工作”')
+    assert_equal "#{post.id}-work", post.permalink
     
     post = Post.create(:title => '妈妈的礼物')
     assert_equal "#{post.id}-mothers-gift", post.permalink
@@ -68,12 +79,17 @@ class ChinesePermalinkTest < Test::Unit::TestCase
     post = Post.create(:title => '宝洁')
     assert_equal "#{post.id}-procter-gamble", post.permalink
 
-    post = Post.create(:title => '“工作”')
-    assert_equal "#{post.id}-work", post.permalink
+    post = Post.create(:title => '自我介绍')
+    assert_equal "#{post.id}-self-introduction", post.permalink
   end
 
   def test_chinese_category_and_title
     post = CategoryPost.create(:title => '我是中国人', :category => '介绍')
     assert_equal "#{post.id}-introduction-i-am-a-chinese", post.permalink
+  end
+
+  def test_complicated_title
+    post = ComplicatedPost.create(:title => 'C#语言')
+    assert_equal "#{post.id}-c-sharp-language", post.permalink
   end
 end
