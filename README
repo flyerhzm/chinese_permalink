@@ -41,7 +41,7 @@ Or
 
   class Post < ActiveRecord::Base
     # create permalink by chinese title, store permalink to column "slug_url"
-    chinese_permalink :title, :slug_url
+    chinese_permalink :title, :permalink_field => :slug_url
   end
 
 
@@ -58,13 +58,35 @@ Or
   ruby script/generate chinese_permalink_migration add_permalink_to_posts posts slug_url
 
 
-3. define ar to_param method
+3. Define ar to_param method
 
   class Post < ActiveRecord::Base
     def to_param
       permalink
     end
   end
+
+
+Advance
+=======
+
+You can add before_methods and after_methods to meet your business, for example:
+
+class Post < ActiveRecord::Base
+  chinese_permalink :title, :before_methods => :parse_c_sharp
+
+  def parse_c_sharp(permalink)
+    permalink.gsub('C#', 'c-sharp')
+  end
+end
+
+class Post < ActiveRecord::Base
+  chinese_permalink :title, :after_methods => :parse_pg
+
+  def parse_pg(permalink)
+    permalink.gsub('Procter &amp; Gamble', 'pg')
+  end
+end
 
 
 Copyright (c) 2009 Richard Huang (flyerhzm@gmail.com), released under the MIT license

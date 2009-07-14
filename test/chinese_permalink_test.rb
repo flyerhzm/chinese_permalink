@@ -32,11 +32,19 @@ class CategoryPost < Post
   chinese_permalink [:category, :title]
 end
 
-class ComplicatedPost < Post
+class ComplicatedBeforePost < Post
   chinese_permalink :title, :before_methods => :parse_c_sharp
 
-  def parse_c_sharp
-    permalink.gsub!(/C#/, /c-sharp/)
+  def parse_c_sharp(permalink)
+    permalink.gsub('C#', 'c-sharp')
+  end
+end
+
+class ComplicatedAfterPost < Post
+  chinese_permalink :title, :after_methods => :parse_pg
+
+  def parse_pg(permalink)
+    permalink.gsub('Procter &amp; Gamble', 'pg')
   end
 end
 
@@ -88,8 +96,13 @@ class ChinesePermalinkTest < Test::Unit::TestCase
     assert_equal "#{post.id}-introduction-i-am-a-chinese", post.permalink
   end
 
-  def test_complicated_title
-    post = ComplicatedPost.create(:title => 'C#语言')
+  def test_complicated_title_with_before_methods
+    post = ComplicatedBeforePost.create(:title => 'C#语言')
     assert_equal "#{post.id}-c-sharp-language", post.permalink
+  end
+
+  def test_complicated_title_with_after_methods
+    post = ComplicatedAfterPost.create(:title => '宝洁')
+    assert_equal "#{post.id}-pg", post.permalink
   end
 end
