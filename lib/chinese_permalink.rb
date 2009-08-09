@@ -19,21 +19,23 @@ module ChinesePermalink
 
   private 
   def create_permalink
-    chinese_permalink = self.class.permalink_attrs.collect do |attr_name|
-      chinese_value = self.send(attr_name)
-    end * '-'
-    self.class.before_methods.each do |method|
-      chinese_permalink = self.send(method, chinese_permalink)
-    end
+    if self.permalink.nil?
+      chinese_permalink = self.class.permalink_attrs.collect do |attr_name|
+        chinese_value = self.send(attr_name)
+      end * '-'
+      self.class.before_methods.each do |method|
+        chinese_permalink = self.send(method, chinese_permalink)
+      end
 
-    english_permalink = Translate.t(chinese_permalink, 'CHINESE', 'ENGLISH')
-    self.class.after_methods.each do |method|
-      english_permalink = self.send(method, english_permalink)
-    end
+      english_permalink = Translate.t(chinese_permalink, 'CHINESE', 'ENGLISH')
+      self.class.after_methods.each do |method|
+        english_permalink = self.send(method, english_permalink)
+      end
 
-    english_permalink = remove_duplicate_dash(remove_tailing_dash(remove_non_ascii(remove_space(remove_punctuation(english_permalink))))).downcase
-    permalink = id.to_s + '-' + english_permalink
-    self.update_attribute(self.class.permalink_field, permalink) if self.permalink.nil?
+      english_permalink = remove_duplicate_dash(remove_tailing_dash(remove_non_ascii(remove_space(remove_punctuation(english_permalink))))).downcase
+      permalink = id.to_s + '-' + english_permalink
+      self.update_attribute(self.class.permalink_field, permalink)
+    end
   end
 
   def remove_tailing_dash(text)
@@ -68,7 +70,7 @@ module ChinesePermalink
       self.before_methods = Array(options[:before_methods])
       self.after_methods = Array(options[:after_methods])
 
-      after_create :create_permalink
+      after_save :create_permalink
     end
   end
 end
