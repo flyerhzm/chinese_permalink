@@ -1,0 +1,101 @@
+h1. ChinesePermalink
+
+This plugin adds a capability for ar model to create a seo permalink with your chinese text. It will translate your chinese text to english url based on google translate.
+
+The permalink will be composed of id and the english value translated from chinese text.
+
+For exmpale, title of post is '我是中国人', permalink of post is '1-i-am-a-chinese'
+
+***************************************************************************
+
+h2. Install
+
+* install dependency gem sishen-rtranslate:
+
+<pre><code>sudo gem install sishen-rtranslate --source http://gems.github.com</code></pre>
+
+* install chinese_permalink plugin
+
+<pre><code>script/plugin install git://github.com/flyerhzm/chinese_permalink.git</code></pre>
+
+***************************************************************************
+
+h2. Example
+
+* Define chinese_permalink to model
+
+<pre><code>
+class Post < ActiveRecord::Base
+  # create permalink by chinese title, default permalink column is "permalink"
+  chinese_permalink :title
+end
+</code></pre>
+
+Or
+
+<pre><code>
+class Post < ActiveRecord::Base
+  # create permalink by chinese category and title
+  chinese_permalink [:category, :title]
+end
+</code></pre>
+
+Or
+
+<pre><code>
+class Post < ActiveRecord::Base
+  # create permalink by chinese title, store permalink to column "slug_url"
+  chinese_permalink :title, :permalink_field => :slug_url
+end
+</code></pre>
+
+
+* Generate migration
+
+<pre><code>ruby script/generate chinese_permalink_migration (migration name) (table name) (permalink column name)</code></pre>
+
+For example:
+
+<pre><code>ruby script/generate chinese_permalink_migration add_permalink_to_posts posts</code></pre>
+
+Or
+
+<pre><code>ruby script/generate chinese_permalink_migration add_permalink_to_posts posts slug_url</code></pre>
+
+
+3. Define ar to_param method
+
+<pre><code>
+class Post < ActiveRecord::Base
+  def to_param
+    permalink
+  end
+end
+</code></pre>
+
+**************************************************************************
+
+h2. Advance
+
+You can add before_methods and after_methods to meet your business, for example:
+
+<pre><code>
+class Post < ActiveRecord::Base
+  chinese_permalink :title, :before_methods => :parse_c_sharp
+
+  def parse_c_sharp(permalink)
+    permalink.gsub('C#', 'c-sharp')
+  end
+end
+
+class Post < ActiveRecord::Base
+  chinese_permalink :title, :after_methods => :parse_pg
+
+  def parse_pg(permalink)
+    permalink.gsub('Procter &amp; Gamble', 'pg')
+  end
+end
+</code></pre>
+
+
+Copyright (c) 2009 Richard Huang (flyerhzm@gmail.com), released under the MIT license
