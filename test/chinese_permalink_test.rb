@@ -72,7 +72,7 @@ class ChinesePermalinkTest < Test::Unit::TestCase
     assert_equal "#{post.id}-i-am-a-chinese-shanghai", post.permalink
 
     post = Post.create(:title => '我是中国人──上海')
-    assert_equal "#{post.id}-i-am-chinese-shanghai", post.permalink
+    assert_equal "#{post.id}-i-am-a-chinese-shanghai", post.permalink
 
     post = Post.create(:title => '上海+中国')
     assert_equal "#{post.id}-shanghai-china", post.permalink
@@ -84,7 +84,7 @@ class ChinesePermalinkTest < Test::Unit::TestCase
     assert_equal "#{post.id}-work", post.permalink
     
     post = Post.create(:title => '妈妈的礼物')
-    assert_equal "#{post.id}-mothers-gift", post.permalink
+    assert_equal "#{post.id}-moms-gift", post.permalink
 
     post = Post.create(:title => '宝洁')
     assert_equal "#{post.id}-procter-gamble", post.permalink
