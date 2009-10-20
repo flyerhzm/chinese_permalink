@@ -13,9 +13,9 @@ def setup_db
   
   ActiveRecord::Schema.define(:version => 1) do
     create_table :posts do |t|
-      t.column :title, :string
-      t.column :category, :string
-      t.column :permalink, :string
+      t.string :title
+      t.string :category
+      t.string :permalink
     end
   end
 end
