@@ -6,7 +6,10 @@ require 'active_record'
 require File.join(File.dirname(__FILE__), '../lib/chinese_permalink')
 require File.join(File.dirname(__FILE__), '../init')
 
-ActiveRecord::Base.establish_connection(:adapter => 'sqlite3', :database => ':memory:')
+ActiveRecord::Base.establish_connection(
+  :adapter => 'sqlite3', 
+  :database => ':memory:'
+)
 
 def setup_db
   ActiveRecord::Migration.verbose = false
