@@ -43,7 +43,7 @@ module ChinesePermalink
   end
 
   def remove_non_ascii(text)
-    text.gsub(/[^-_a-zA-Z0-9]/, '')
+    text.gsub('_', '-').gsub(/[^-a-zA-Z0-9]/, '')
   end
 
   def remove_space(text)
