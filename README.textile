@@ -10,13 +10,7 @@ For exmpale, title of post is '我是中国人', permalink of post is '1-i-am-a-
 
 h2. Install
 
-* install dependency gem sishen-rtranslate:
-
-<pre><code>sudo gem install sishen-rtranslate --source http://gems.github.com</code></pre>
-
-* install chinese_permalink plugin
-
-<pre><code>script/plugin install git://github.com/flyerhzm/chinese_permalink.git</code></pre>
+<pre><code>sudo gem install chinese_permalink</code></pre>
 
 ***************************************************************************
 
