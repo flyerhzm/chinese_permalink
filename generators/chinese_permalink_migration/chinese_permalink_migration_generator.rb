@@ -1,8 +1,8 @@
 # user this migration generator
-# ruby script/generate chinese_permalink_migartion (migration name) (table name) [permalink column name]
+# ruby script/generate chinese_permalink_migartion (table name) [permalink column name]
 # for example:
-# ruby script/generate chinese_permalink_migration add_permalink_to_posts posts
-# ruby script/generate chiense_permalink_migration add_permalink_to_posts posts slug_url
+# ruby script/generate chinese_permalink_migration posts
+# ruby script/generate chiense_permalink_migration posts slug_url
 class ChinesePermalinkMigrationGenerator < Rails::Generator::NamedBase
   attr_reader :permalink_table_name
   attr_reader :permalink_field_name

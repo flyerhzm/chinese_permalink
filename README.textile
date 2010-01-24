@@ -46,15 +46,15 @@ end
 
 *2. Generate migration*
 
-<pre><code>script/generate chinese_permalink_migration (migration name) (table name) (permalink column name)</code></pre>
+<pre><code>script/generate chinese_permalink_migration (table name) (permalink column name)</code></pre>
 
 For example:
 
-<pre><code>script/generate chinese_permalink_migration add_permalink_to_posts posts</code></pre>
+<pre><code>script/generate chinese_permalink_migration posts</code></pre>
 
 Or
 
-<pre><code>script/generate chinese_permalink_migration add_permalink_to_posts posts slug_url</code></pre>
+<pre><code>script/generate chinese_permalink_migration posts slug_url</code></pre>
 
 
 *3. Define ar to_param method*
