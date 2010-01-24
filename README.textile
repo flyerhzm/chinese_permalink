@@ -16,7 +16,7 @@ h2. Install
 
 h2. Example
 
-* Define chinese_permalink to model
+*1. Define chinese_permalink to model*
 
 <pre><code>
 class Post < ActiveRecord::Base
@@ -44,20 +44,20 @@ end
 </code></pre>
 
 
-* Generate migration
+*2. Generate migration*
 
-<pre><code>ruby script/generate chinese_permalink_migration (migration name) (table name) (permalink column name)</code></pre>
+<pre><code>script/generate chinese_permalink_migration (migration name) (table name) (permalink column name)</code></pre>
 
 For example:
 
-<pre><code>ruby script/generate chinese_permalink_migration add_permalink_to_posts posts</code></pre>
+<pre><code>script/generate chinese_permalink_migration add_permalink_to_posts posts</code></pre>
 
 Or
 
-<pre><code>ruby script/generate chinese_permalink_migration add_permalink_to_posts posts slug_url</code></pre>
+<pre><code>script/generate chinese_permalink_migration add_permalink_to_posts posts slug_url</code></pre>
 
 
-3. Define ar to_param method
+*3. Define ar to_param method*
 
 <pre><code>
 class Post < ActiveRecord::Base
