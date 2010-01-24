@@ -1,6 +1,7 @@
 require 'rake'
 require 'rake/testtask'
 require 'rake/rdoctask'
+require 'jeweler'
 
 desc 'Default: run unit tests.'
 task :default => :test
@@ -21,3 +22,16 @@ Rake::RDocTask.new(:rdoc) do |rdoc|
   rdoc.rdoc_files.include('README')
   rdoc.rdoc_files.include('lib/**/*.rb')
 end
+
+Jeweler::Tasks.new do |gemspec|
+  gemspec.name = "chinese_permalink"
+  gemspec.summary = "This plugin adds a capability for AR model to create a seo permalink with your chinese text."
+  gemspec.description = "This plugin adds a capability for AR model to create a seo permalink with your chinese text. It will translate your chinese text to english url based on google translate."
+  gemspec.email = "flyerhzm@gmail.com"
+  gemspec.homepage = "http://github.com/flyerhzm/chinese_permalink"
+  gemspec.authors = ["Richard Huang"]
+  gemspec.add_dependency 'sishen-rtranslate'
+  gemspec.files.exclude '.gitignore'
+  gemspec.files.exclude 'log/*'
+end
+Jeweler::GemcutterTasks.new
