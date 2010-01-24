@@ -8,14 +8,14 @@ class ChinesePermalinkMigrationGenerator < Rails::Generator::NamedBase
   attr_reader :permalink_field_name
 
   def initialize(runtime_args, runtime_options = {})
-    @permalink_table_name = runtime_args[1]
-    @permalink_field_name = runtime_args[2] || 'permalink'
     super
+    @permalink_table_name = runtime_args[0]
+    @permalink_field_name = runtime_args[1] || 'permalink'
   end
 
   def manifest
     record do |m|
-      m.migration_template 'migration.rb', 'db/migrate'
+      m.migration_template 'migration.rb', 'db/migrate', :migration_file_name => "add_#{@permalink_field_name}_to_#{@permalink_table_name}"
     end
   end
 end

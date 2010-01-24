@@ -1,4 +1,4 @@
-class Add<%= permalink_field_name.capitalize %>To<%= permalink_table_name.capitalize %> < ActiveRecord::Migration
+class Add<%= permalink_field_name.camelize %>To<%= permalink_table_name.capitalize %> < ActiveRecord::Migration
   def self.up
     add_column :<%= permalink_table_name %>, :<%= permalink_field_name %>, :string, :default => nil
 
