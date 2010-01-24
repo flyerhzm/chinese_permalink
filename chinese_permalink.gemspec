@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{chinese_permalink}
-  s.version = "1.1.1"
+  s.version = "1.1.2"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Richard Huang"]
@@ -24,6 +24,7 @@ Gem::Specification.new do |s|
      "chinese_permalink.gemspec",
      "generators/chinese_permalink_migration/chinese_permalink_migration_generator.rb",
      "generators/chinese_permalink_migration/templates/migration.rb",
+     "init.rb",
      "lib/chinese_permalink.rb",
      "rails/init.rb",
      "test/chines_permalink_test.rb"
