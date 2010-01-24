@@ -8,13 +8,10 @@ end
 module ChinesePermalink
 
   def self.included(base)
-    base.extend ClassMethods
-    class <<base
-      attr_accessor :permalink_attrs
-      attr_accessor :permalink_field
-      attr_accessor :before_methods
-      attr_accessor :after_methods
+    base.class_eval do
+      class_inheritable_accessor :permalink_attrs, :permalink_field, :before_methods, :after_methods
     end
+    base.extend ClassMethods
   end 
 
   private 
