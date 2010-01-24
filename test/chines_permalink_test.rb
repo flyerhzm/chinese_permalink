@@ -64,50 +64,50 @@ class ChinesePermalinkTest < Test::Unit::TestCase
 
   def test_simple_chinese_title
     post = Post.create(:title => '中国人')
-    assert_equal "#{post.id}-chinese", post.permalink
+    assert_equal "chinese", post.permalink
 
     post = Post.create(:title => '我是中国人')
-    assert_equal "#{post.id}-i-am-a-chinese", post.permalink
+    assert_equal "i-am-a-chinese", post.permalink
   end
 
   def test_chinese_title_with_dash
     post = Post.create(:title => '我是中国人——上海')
-    assert_equal "#{post.id}-i-am-a-chinese-shanghai", post.permalink
+    assert_equal "i-am-a-chinese-shanghai", post.permalink
 
     post = Post.create(:title => '我是中国人──上海')
-    assert_equal "#{post.id}-i-am-a-chinese-shanghai", post.permalink
+    assert_equal "i-am-a-chinese-shanghai", post.permalink
 
     post = Post.create(:title => '上海+中国')
-    assert_equal "#{post.id}-shanghai-china", post.permalink
+    assert_equal "shanghai-china", post.permalink
 
     post = Post.create(:title => '上海/中国')
-    assert_equal "#{post.id}-shanghai-china", post.permalink
+    assert_equal "shanghai-china", post.permalink
 
     post = Post.create(:title => '“工作”')
-    assert_equal "#{post.id}-work", post.permalink
+    assert_equal "work", post.permalink
     
     post = Post.create(:title => '妈妈的礼物')
-    assert_equal "#{post.id}-moms-gift", post.permalink
+    assert_equal "moms-gift", post.permalink
 
     post = Post.create(:title => '宝洁')
-    assert_equal "#{post.id}-procter-gamble", post.permalink
+    assert_equal "procter-gamble", post.permalink
 
     post = Post.create(:title => '自我介绍')
-    assert_equal "#{post.id}-self-introduction", post.permalink
+    assert_equal "self-introduction", post.permalink
   end
 
   def test_chinese_category_and_title
     post = CategoryPost.create(:title => '我是中国人', :category => '介绍')
-    assert_equal "#{post.id}-introduction-i-am-a-chinese", post.permalink
+    assert_equal "introduction-i-am-a-chinese", post.permalink
   end
 
   def test_complicated_title_with_before_methods
     post = ComplicatedBeforePost.create(:title => 'C#语言')
-    assert_equal "#{post.id}-c-sharp-language", post.permalink
+    assert_equal "c-sharp-language", post.permalink
   end
 
   def test_complicated_title_with_after_methods
     post = ComplicatedAfterPost.create(:title => '宝洁')
-    assert_equal "#{post.id}-pg", post.permalink
+    assert_equal "pg", post.permalink
   end
 end

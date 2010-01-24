@@ -62,7 +62,7 @@ Or
 <pre><code>
 class Post < ActiveRecord::Base
   def to_param
-    permalink
+    "#{id}-#{permalink}"
   end
 end
 </code></pre>
