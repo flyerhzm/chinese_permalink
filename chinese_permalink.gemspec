@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{chinese_permalink}
-  s.version = "1.1.2"
+  s.version = "1.1.3"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Richard Huang"]
-  s.date = %q{2010-01-24}
+  s.date = %q{2010-02-02}
   s.description = %q{This plugin adds a capability for AR model to create a seo permalink with your chinese text. It will translate your chinese text to english url based on google translate.}
   s.email = %q{flyerhzm@gmail.com}
   s.extra_rdoc_files = [
