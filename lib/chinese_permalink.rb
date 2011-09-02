@@ -1,8 +1,8 @@
 begin
   # rtranslate is a gem that can translate text based on google translate
-  require 'rtranslate'
+  require 'easy_translate'
 rescue Object
-  puts "no rtranslate, you might want to look into it."
+  puts "no easy_translate, you might want to look into it."
 end
 
 module ChinesePermalink
@@ -24,7 +24,7 @@ module ChinesePermalink
         chinese_permalink = self.send(method, chinese_permalink)
       end
 
-      english_permalink = Translate.t(chinese_permalink, 'CHINESE', 'ENGLISH')
+      english_permalink = EasyTranslate.translate(chinese_permalink, :from => 'zh-TW', :to => :en )
       self.class.after_methods.each do |method|
         english_permalink = self.send(method, english_permalink)
       end
