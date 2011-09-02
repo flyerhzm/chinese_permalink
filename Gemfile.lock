@@ -1,0 +1,19 @@
+PATH
+  remote: .
+  specs:
+    chinese_permalink (1.1.3)
+      easy_translate
+
+GEM
+  remote: http://rubygems.org/
+  specs:
+    easy_translate (0.2.1)
+      json
+    json (1.5.4)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  chinese_permalink!
+  easy_translate
