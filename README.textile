@@ -14,6 +14,18 @@ h2. Install
 
 ***************************************************************************
 
+h2. Config
+
+As google translator api begins to charge, I decide to use bing translator api, it's free. You have to add a config file to tell chinese_permalink what's your bing app id in <code>config/chinese_permalink.yml</code>
+
+<pre><code>
+bing:
+  app_id: xxx
+  language: zh-cht (chinese traditional, default is zh-chs, chinese simplified)
+</code></pre>
+
+***************************************************************************
+
 h2. Example
 
 *1. Define chinese_permalink to model*

@@ -1,3 +1,4 @@
+# encoding: utf-8
 require 'test/unit'
 
 require 'rubygems'
@@ -6,14 +7,20 @@ require 'active_record'
 require File.join(File.dirname(__FILE__), '../lib/chinese_permalink')
 require File.join(File.dirname(__FILE__), '../init')
 
+class Rails
+  def self.root
+    File.expand_path(__FILE__).split('/')[0..-3].join('/')
+  end
+end
+
 ActiveRecord::Base.establish_connection(
-  :adapter => 'sqlite3', 
+  :adapter => 'sqlite3',
   :database => ':memory:'
 )
 
 def setup_db
   ActiveRecord::Migration.verbose = false
-  
+
   ActiveRecord::Schema.define(:version => 1) do
     create_table :posts do |t|
       t.string :title
@@ -64,15 +71,15 @@ class ChinesePermalinkTest < Test::Unit::TestCase
 
   def test_simple_chinese_title
     post = Post.create(:title => '中国人')
-    assert_equal "chinese", post.permalink
+    assert_equal "the-chinese-people", post.permalink
 
     post = Post.create(:title => '我是中国人')
-    assert_equal "i-am-a-chinese", post.permalink
+    assert_equal "i-am-chinese", post.permalink
   end
 
   def test_chinese_title_with_dash
     post = Post.create(:title => '我是中国人——上海')
-    assert_equal "i-am-a-chinese-shanghai", post.permalink
+    assert_equal "i-am-from-china-shanghai", post.permalink
 
     post = Post.create(:title => '我是中国人──上海')
     assert_equal "i-am-a-chinese-shanghai", post.permalink
@@ -85,20 +92,20 @@ class ChinesePermalinkTest < Test::Unit::TestCase
 
     post = Post.create(:title => '“工作”')
     assert_equal "work", post.permalink
-    
+
     post = Post.create(:title => '妈妈的礼物')
-    assert_equal "moms-gift", post.permalink
+    assert_equal "mothers-gift", post.permalink
 
     post = Post.create(:title => '宝洁')
-    assert_equal "procter-gamble", post.permalink
+    assert_equal "procter", post.permalink
 
     post = Post.create(:title => '自我介绍')
-    assert_equal "self-introduction", post.permalink
+    assert_equal "introducing-myself", post.permalink
   end
 
   def test_chinese_category_and_title
     post = CategoryPost.create(:title => '我是中国人', :category => '介绍')
-    assert_equal "introduction-i-am-a-chinese", post.permalink
+    assert_equal "introduction-i-am-from-china", post.permalink
   end
 
   def test_complicated_title_with_before_methods
@@ -108,6 +115,6 @@ class ChinesePermalinkTest < Test::Unit::TestCase
 
   def test_complicated_title_with_after_methods
     post = ComplicatedAfterPost.create(:title => '宝洁')
-    assert_equal "pg", post.permalink
+    assert_equal "procter", post.permalink
   end
 end

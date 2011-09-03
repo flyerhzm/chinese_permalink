@@ -30,7 +30,6 @@ Jeweler::Tasks.new do |gemspec|
   gemspec.email = "flyerhzm@gmail.com"
   gemspec.homepage = "http://github.com/flyerhzm/chinese_permalink"
   gemspec.authors = ["Richard Huang"]
-  gemspec.add_dependency 'sishen-rtranslate'
   gemspec.files.exclude '.gitignore'
   gemspec.files.exclude 'log/*'
 end
