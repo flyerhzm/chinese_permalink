@@ -82,3 +82,5 @@ module ChinesePermalink
     end
   end
 end
+
+ActiveRecord::Base.send :include, ChinesePermalink

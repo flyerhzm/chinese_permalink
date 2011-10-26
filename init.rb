@@ -1,1 +1,1 @@
-ActiveRecord::Base.send :include, ChinesePermalink
+require File.join(File.dirname(__FILE__), 'rails', 'init')
