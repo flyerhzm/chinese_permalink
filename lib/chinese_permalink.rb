@@ -68,7 +68,7 @@ module ChinesePermalink
       def t(text)
         response = Net::HTTP.get(URI.parse(URI.encode(translate_url + text)))
         response =~ %r|<string.*?>(.*?)</string>|
-        $1
+        $1.to_s
       end
 
       def translate_url
