@@ -23,9 +23,13 @@ module ChinesePermalink
         english_permalink = self.send(method, english_permalink)
       end
 
-      english_permalink = remove_duplicate_dash(remove_tailing_dash(remove_non_ascii(remove_space(remove_punctuation(english_permalink))))).downcase
+      english_permalink = remove_duplicate_dash(remove_heading_dash(remove_tailing_dash(remove_non_ascii(remove_space(remove_punctuation(english_permalink)))))).downcase
       self.update_attribute(self.class.permalink_field, english_permalink)
     end
+  end
+
+  def remove_heading_dash(text)
+    text.gsub(/^-+/, '')
   end
 
   def remove_tailing_dash(text)
@@ -45,10 +49,7 @@ module ChinesePermalink
   end
 
   def remove_duplicate_dash(text)
-    while text.index('--')
-      text.gsub!('--', '-')
-    end
-    text
+    text.gsub(/-{2,}/, '-')
   end
 
   module ClassMethods
@@ -68,7 +69,7 @@ module ChinesePermalink
       def t(text)
         response = Net::HTTP.get(URI.parse(URI.encode(translate_url + text)))
         response =~ %r|<string.*?>(.*?)</string>|
-        $1
+        $1.to_s
       end
 
       def translate_url
