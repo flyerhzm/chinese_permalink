@@ -14,14 +14,19 @@ h2. Install
 
 ***************************************************************************
 
-h2. Config
+h2. Setup
 
-As google translator api begins to charge, I decide to use bing translator api, it's free. You have to add a config file to tell chinese_permalink what's your bing app id in <code>config/chinese_permalink.yml</code>
+As google translator api begins to charge, I decide to use bing translator api, it's free.
+
+First, subscribe to "Microsoft Translator":https://datamarket.azure.com/dataset/bing/microsofttranslator on Windows Azure Marketplace.
+
+Then, fill your Marketplace application info in <code>config/chinese_permalink.yml</code>. You can create an app on "Marketplace Developer":https://datamarket.azure.com/developer/applications page.
 
 <pre><code>
 bing:
-  app_id: xxx
-  language: zh-cht (chinese traditional, default is zh-chs, chinese simplified)
+  client_id: APP_CLIENT_ID
+  client_secret: APP_CLIENT_SECRET
+  language: zh-cht # (chinese traditional, default is zh-chs, chinese simplified)
 </code></pre>
 
 ***************************************************************************
