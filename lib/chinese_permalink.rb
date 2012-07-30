@@ -1,4 +1,4 @@
-require 'net/http'
+require 'bing_translator'
 
 module ChinesePermalink
   def self.included(base)
@@ -66,19 +66,17 @@ module ChinesePermalink
 
   class Translate
     class <<self
-      def t(text)
-        response = Net::HTTP.get(URI.parse(URI.encode(translate_url + text)))
-        response =~ %r|<string.*?>(.*?)</string>|
-        $1.to_s
+
+      def config
+        @config ||= YAML.load(File.open(File.join(Rails.root, "config/chinese_permalink.yml")))['bing']
       end
 
-      def translate_url
-        @translate_url ||= begin
-          config = YAML.load(File.open(File.join(Rails.root, "config/chinese_permalink.yml")))
-          app_id = config['bing']['app_id']
-          language = config['bing']['language']
-          "http://api.microsofttranslator.com/v2/Http.svc/Translate?appId=#{app_id}&from=#{language}&to=en&text="
-        end
+      def t(text)
+        self.translator.translate(text, :from => config['language'], :to => 'en')
+      end
+
+      def translator
+        @translator ||= BingTranslator.new(config['client_id'], config['client_secret'])
       end
     end
   end
