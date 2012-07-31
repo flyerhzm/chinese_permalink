@@ -33,6 +33,7 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib"]
   s.rubygems_version = "1.8.10"
   s.summary = "This plugin adds a capability for AR model to create a seo permalink with your chinese text."
+  s.add_dependency('bing_translator', '~> 3.0.0')
 
   if s.respond_to? :specification_version then
     s.specification_version = 3
