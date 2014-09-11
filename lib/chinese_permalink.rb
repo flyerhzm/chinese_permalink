@@ -28,6 +28,12 @@ module ChinesePermalink
     end
   end
 
+  def try_create_permalink
+    create_permalink
+  rescue => e
+    # do nothing
+  end
+
   def remove_heading_dash(text)
     text.gsub(/^-+/, '')
   end
@@ -60,7 +66,7 @@ module ChinesePermalink
       self.before_methods = Array(options[:before_methods])
       self.after_methods = Array(options[:after_methods])
 
-      after_save :create_permalink
+      after_save :try_create_permalink
     end
   end
 
