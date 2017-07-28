@@ -6,11 +6,13 @@ module ChinesePermalink
       class_attribute :permalink_attrs, :permalink_field, :before_methods, :after_methods
     end
     base.extend ClassMethods
+    base.include InstanceMethods
   end
 
   private
+
   def create_permalink
-    if self.permalink.nil?
+    if self.permalink.nil? || self.permalink.blank?
       chinese_permalink = self.class.permalink_attrs.collect do |attr_name|
         chinese_value = self.send(attr_name)
       end * '-'
@@ -23,8 +25,8 @@ module ChinesePermalink
         english_permalink = self.send(method, english_permalink)
       end
 
-      english_permalink = remove_duplicate_dash(remove_heading_dash(remove_tailing_dash(remove_non_ascii(remove_space(remove_punctuation(english_permalink)))))).downcase
-      self.update_attribute(self.class.permalink_field, english_permalink)
+      english_permalink = format_process(english_permalink)
+      self.update_column(:"#{self.class.permalink}" => english_permalink)
     end
   end
 
@@ -32,6 +34,10 @@ module ChinesePermalink
     create_permalink
   rescue => e
     # do nothing
+  end
+
+  def format_process(text)
+    remove_duplicate_dash(remove_heading_dash(remove_tailing_dash(remove_non_ascii(remove_space(remove_punctuation(text)))))).downcase
   end
 
   def remove_heading_dash(text)
@@ -70,21 +76,31 @@ module ChinesePermalink
     end
   end
 
+  module InstanceMethods
+    def sanitize_format(text)
+      format_process(text)
+    end
+  end
+
   class Translate
     class <<self
       def t(text)
-        response = Net::HTTP.get(URI.parse(URI.encode(translate_url + text)))
+        response = Net::HTTP.get(URI.parse(URI.encode(translator_endpoint + text)))
         response =~ %r|<string.*?>(.*?)</string>|
         $1.to_s
       end
 
-      def translate_url
-        @translate_url ||= begin
-          config = YAML.load(File.open(File.join(Rails.root, "config/chinese_permalink.yml")))
-          app_id = config['bing']['app_id']
-          language = config['bing']['language']
-          "http://api.microsofttranslator.com/v2/Http.svc/Translate?appId=#{app_id}&from=#{language}&to=en&text="
-        end
+      def translator_endpoint
+        "https://api.microsofttranslator.com/V2/Http.svc/Translate?appId=#{authorization_token}&to=en&text="
+      end
+
+      def authorization_token
+        config = YAML.load(File.open(File.join(Rails.root, "config/chinese_permalink.yml")))
+        access_token = config['microsoft']['key']
+        access_token_endpoint = "https://api.cognitive.microsoft.com/sts/v1.0/issueToken?Subscription-Key=#{access_token}"
+        response = Net::HTTP.post_form(URI(access_token_endpoint), {})
+
+        response.code == "200" ? "Bearer #{response.body}" : nil
       end
     end
   end
