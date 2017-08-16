@@ -26,7 +26,7 @@ module ChinesePermalink
       end
 
       english_permalink = format_process(english_permalink)
-      self.update_column(:"#{self.class.permalink}" => english_permalink)
+      self.update_column(:"#{self.class.permalink_field}", english_permalink)
     end
   end
 
